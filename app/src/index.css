@@ -45,13 +45,18 @@ canvas {
 }
 
 .section {
-  height: 100vh;
+  min-height: 100vh; /* Changed from height to min-height for mobile responsiveness */
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
-  /* border-bottom: 1px solid rgba(255,255,255,0.05); Debug guide */
+  padding: 1rem; /* Reduced base padding */
+}
+
+@media (min-width: 768px) {
+    .section {
+        padding: 2rem;
+    }
 }
 
 .content-wrapper {
@@ -63,7 +68,7 @@ canvas {
 
 /* Typography & Components */
 h1 {
-  font-size: clamp(3rem, 8vw, 6rem);
+  font-size: clamp(2.5rem, 8vw, 6rem); /* Improved clamp for mobile */
   font-weight: 600;
   line-height: 1.1;
   letter-spacing: -0.02em;
@@ -75,7 +80,7 @@ h1 {
 }
 
 p {
-  font-size: 1.125rem;
+  font-size: clamp(1rem, 2vw, 1.125rem);
   color: var(--text-secondary);
   line-height: 1.6;
   max-width: 600px;
@@ -106,8 +111,16 @@ p {
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 24px;
-  padding: 3.5rem;
+  padding: 1.5rem; /* Mobile first padding */
+  width: 100%; /* Ensure it takes width on mobile */
 }
+
+@media (min-width: 768px) {
+    .glass-card {
+        padding: 3.5rem;
+    }
+}
+
 
 /* Premium Contact Cards */
 .contact-card {
@@ -118,14 +131,21 @@ p {
   background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 2rem 3rem;
+  padding: 2rem; /* Reduced for mobile */
   border-radius: 20px;
   text-decoration: none;
   color: white;
   transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  min-width: 260px;
+  min-width: 100%; /* Full width on mobile */
   position: relative;
   overflow: hidden;
+}
+
+@media (min-width: 768px) {
+    .contact-card {
+       padding: 2rem 3rem;
+       min-width: 260px;
+    }
 }
 
 .contact-card:hover {
@@ -144,9 +164,18 @@ p {
 }
 
 .contact-card .contact-value {
-  font-size: 1.25rem;
+  font-size: 1.1rem; /* Smaller on mobile */
   font-weight: 500;
   letter-spacing: -0.01em;
+  text-align: center;
+  word-break: break-all; /* Prevent email overflow */
+}
+
+@media (min-width: 768px) {
+    .contact-card .contact-value {
+       font-size: 1.25rem;
+       word-break: normal;
+    }
 }
 
 /* Hide scrollbar but keep functionality */
@@ -168,4 +197,28 @@ html.lenis, html.lenis body {
 
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
+}
+
+/* Animations */
+@keyframes scrollDown {
+  0% {
+    transform: translateY(-20px) scaleY(0);
+    transform-origin: top;
+    opacity: 0;
+  }
+  30% {
+    transform: translateY(0) scaleY(1);
+    transform-origin: top;
+    opacity: 1;
+  }
+  70% {
+    transform: translateY(20px) scaleY(1);
+    transform-origin: bottom;
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(40px) scaleY(0);
+    transform-origin: bottom;
+    opacity: 0;
+  }
 }
